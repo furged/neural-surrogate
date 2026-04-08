@@ -1,8 +1,7 @@
 import numpy as np
 
-# ─────────────────────────────────────────────
 # PARAMETERS (all in one place — easy to change)
-# ─────────────────────────────────────────────
+
 GRID_SIZE   = 64       # NxN grid
 ALPHA       = 0.1      # diffusion coefficient (how fast heat spreads)
 DT          = 0.1      # time step Δt
@@ -13,12 +12,10 @@ NUM_BLOBS   = 3        # number of Gaussian hot spots in initial condition
 # Stability check: for explicit finite difference, need α*Δt/Δx² < 0.25
 # With α=0.1, Δt=0.1, Δx=1.0 → 0.1*0.1/1.0 = 0.01 ✓ stable
 STABILITY = ALPHA * DT / (DX ** 2)
-assert STABILITY < 0.25, f"Unstable! α*Δt/Δx² = {STABILITY:.3f}, must be < 0.25"
+assert STABILITY < 0.25, f"Unstable! α*Δt/Δx² = {STABILITY:.3f}, must be < 0.25" # if condition after "assert" is false, python simply crashes with error, so this is a mere alarm for safety
 
 
-# ─────────────────────────────────────────────
 # INITIAL CONDITION: Random Gaussian Blobs
-# ─────────────────────────────────────────────
 def generate_initial_condition(grid_size, num_blobs, rng):
     """
     Creates a temperature field with random Gaussian hot spots.
@@ -53,9 +50,7 @@ def generate_initial_condition(grid_size, num_blobs, rng):
     return field
 
 
-# ─────────────────────────────────────────────
 # FINITE DIFFERENCE STEP: Periodic Boundary
-# ─────────────────────────────────────────────
 def laplacian_periodic(u, dx):
     """
     Computes the discrete Laplacian ∇²u using finite differences.
@@ -91,9 +86,7 @@ def step(u, alpha, dt, dx):
     return u + dt * alpha * lap
 
 
-# ─────────────────────────────────────────────
 # FULL SIMULATION: One trajectory
-# ─────────────────────────────────────────────
 def simulate(grid_size=GRID_SIZE, num_steps=NUM_STEPS, alpha=ALPHA,
              dt=DT, dx=DX, num_blobs=NUM_BLOBS, rng=None):
     """
@@ -119,9 +112,7 @@ def simulate(grid_size=GRID_SIZE, num_steps=NUM_STEPS, alpha=ALPHA,
     return trajectory
 
 
-# ─────────────────────────────────────────────
 # QUICK TEST (run this file directly to verify)
-# ─────────────────────────────────────────────
 if __name__ == "__main__":
     rng = np.random.default_rng(seed=42)
 
