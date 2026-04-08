@@ -111,8 +111,6 @@ def simulate(grid_size=GRID_SIZE, num_steps=NUM_STEPS, alpha=ALPHA,
 
     return trajectory
 
-
-# QUICK TEST (run this file directly to verify)
 if __name__ == "__main__":
     rng = np.random.default_rng(seed=42)
 
